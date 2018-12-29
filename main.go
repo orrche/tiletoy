@@ -99,8 +99,8 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	m := Map{}
 	tileSize := 50
-	m.width = 2000 / tileSize
-	m.height = 2000 / tileSize
+	m.width = 40
+	m.height = 40
 	m.tileMap = make([]Tile, m.width*m.height, m.width*m.height)
 
 	var config Config
