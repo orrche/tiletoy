@@ -16,10 +16,12 @@ import (
 
 // Tile holdes information about a tile, configurations it is and how its edges looks
 type Tile struct {
-	Filename string `yaml:"filename"`
-	image    image.Image
-	Edges    []int `yaml:"edges"`
-	rotation int
+	Filename  string `yaml:"filename"`
+	image     image.Image
+	Edges     []int `yaml:"edges"`
+	Rotations []int `yaml:"rotations"`
+	rotation  int
+	Weight    float64 `yaml:"weight"`
 }
 
 // Config holdes the configurationfile info
@@ -78,7 +80,7 @@ func possibleTiles(m Map, tiles []Tile, x int, y int) []Tile {
 	rightTile := getTile(m, x+1, y)
 
 	for _, tile := range tiles {
-		for r := 0; r < 4; r++ {
+		for _, r := range tile.Rotations {
 			tile.rotation = r
 			if upTile != nil && getEdge(up, tile) != getEdge(down, *upTile) {
 				continue
