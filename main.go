@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/disintegration/imaging"
+	flags "github.com/jessevdk/go-flags"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -24,6 +25,10 @@ type Tile struct {
 // Config holdes the configurationfile info
 type Config struct {
 	Tiles []Tile `yaml:"tiles"`
+}
+
+var opts struct {
+	ConfigFile string `short:"c" long:"config" description:"Configfile to use to the generation" value-name:"config.yml"`
 }
 
 // Map keeps trak of the map of different tiles
@@ -96,6 +101,14 @@ func possibleTiles(m Map, tiles []Tile, x int, y int) []Tile {
 }
 
 func main() {
+	_, err := flags.ParseArgs(&opts, os.Args)
+
+	if err != nil {
+		return
+	}
+	if opts.ConfigFile == "" {
+		opts.ConfigFile = "config.yml"
+	}
 	rand.Seed(time.Now().UTC().UnixNano())
 	m := Map{}
 	tileSize := 15
@@ -104,7 +117,7 @@ func main() {
 	m.tileMap = make([]Tile, m.width*m.height, m.width*m.height)
 
 	var config Config
-	f, err := os.Open("config.yml")
+	f, err := os.Open(opts.ConfigFile)
 	if err != nil {
 		panic(err)
 	}
