@@ -1,6 +1,8 @@
 tiles:
         - filename: "images/cross.png"
           edges: [1,1,1,1]
+        - filename: "images/pipeline.png"
+          edges: [1,0,1,0]
         - filename: "images/t-junction.png"
           edges: [0,1,1,1]
         - filename: "images/turn.png"
