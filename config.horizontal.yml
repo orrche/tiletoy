@@ -1,0 +1,22 @@
+tiles:
+        - filename: "images/cross.png"
+          edges: [1,1,1,1]
+          rotations: [0]
+          weight: 50
+        - filename: "images/pipeline.png"
+          rotations: [0]
+          edges: [1,0,1,0]
+        - filename: "images/pipeline.png"
+          rotations: [1]
+          weight: 200
+          edges: [1,0,1,0]
+        - filename: "images/t-junction.png"
+          edges: [0,1,1,1]
+        - filename: "images/turn.png"
+          edges: [0,1,1,0]
+        - filename: "images/empty.png"
+          edges: [0,0,0,0]
+          rotations: [0]
+          weight: 200
+        - filename: "images/deadend.png"
+          edges: [0,0,1,0]
