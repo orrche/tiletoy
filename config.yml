@@ -6,8 +6,10 @@ tiles:
         - filename: "images/t-junction.png"
           edges: [0,1,1,1]
         - filename: "images/turn.png"
+          weight: 50
           edges: [0,1,1,0]
         - filename: "images/empty.png"
+          weight: 50
           edges: [0,0,0,0]
         - filename: "images/deadend.png"
           edges: [0,0,1,0]

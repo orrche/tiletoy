@@ -138,13 +138,31 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		if config.Tiles[i].Weight <= 0 {
+			config.Tiles[i].Weight = 1
+		}
+		if len(config.Tiles[i].Rotations) == 0 {
+			config.Tiles[i].Rotations = []int{0, 1, 2, 3}
+		}
 	}
 
 	img := image.NewRGBA(image.Rect(0, 0, m.width*tileSize, m.height*tileSize))
 	for x := 0; x < m.width; x++ {
 		for y := 0; y < m.height; y++ {
 			tiles := possibleTiles(m, config.Tiles, x, y)
-			m.tileMap[x+y*m.width] = tiles[rand.Int31n(int32(len(tiles)))]
+
+			totWeight := 0.0
+			for _, t := range tiles {
+				totWeight += t.Weight
+			}
+			selected := rand.Float64() * totWeight
+			for i, t := range tiles {
+				selected -= t.Weight
+				if selected < 0 {
+					m.tileMap[x+y*m.width] = tiles[i]
+					break
+				}
+			}
 		}
 	}
 
