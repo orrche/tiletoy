@@ -98,7 +98,7 @@ func possibleTiles(m Map, tiles []Tile, x int, y int) []Tile {
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	m := Map{}
-	tileSize := 50
+	tileSize := 15
 	m.width = 40
 	m.height = 40
 	m.tileMap = make([]Tile, m.width*m.height, m.width*m.height)
@@ -128,12 +128,6 @@ func main() {
 	}
 
 	img := image.NewRGBA(image.Rect(0, 0, m.width*tileSize, m.height*tileSize))
-	f, err = os.Create("draw.png")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-
 	for x := 0; x < m.width; x++ {
 		for y := 0; y < m.height; y++ {
 			tiles := possibleTiles(m, config.Tiles, x, y)
@@ -158,6 +152,12 @@ func main() {
 			draw.Draw(img, image.Rect(x*tileSize+0, y*tileSize+0, x*tileSize+tileSize, y*tileSize+tileSize), dstImage, image.Point{0, 0}, draw.Src)
 		}
 	}
+
+	f, err = os.Create("output.png")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
 
 	png.Encode(f, img)
 }
